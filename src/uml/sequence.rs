@@ -1,4 +1,4 @@
-use crate::{helper::make_element, make_vec, MakeSvg};
+use crate::{helper::make_element, make_vec, theme::{Theme, ThemeName}, MakeSvg};
 use svg::node::element::{Group, Line, Rectangle};
 
 const RECT_HEIGHT: usize = 20;
@@ -16,6 +16,7 @@ pub struct Sequence {
   nodes: Vec<Node>,
   edges: Vec<Edge>,
   max_length: usize,
+  theme: Theme,
 }
 #[derive(Debug)]
 pub struct Edge(usize, usize, String);
@@ -27,11 +28,13 @@ pub struct Node {
 
 #[allow(dead_code)]
 impl Sequence {
-  pub fn new() -> Self {
+  pub fn new(theme: ThemeName) -> Self {
+
     Sequence {
       nodes: vec![],
       edges: vec![],
       max_length: 0,
+      theme: Theme::new(theme)
     }
   }
 
@@ -68,7 +71,7 @@ impl Sequence {
         let option = make_vec![
           ("x", x + rect_width / 2),
           ("y", y + RECT_HEIGHT / 2),
-          ("fill", "#000000"),
+          ("fill", self.theme.color.rect.text),
           ("text-anchor", "middle"),
           ("dominant-baseline", "central"),
           ("font-size", FONT_SIZE)
@@ -85,8 +88,8 @@ impl Sequence {
           .set("ry", 2)
           .set("width", rect_width)
           .set("height", RECT_HEIGHT)
-          .set("fill", "#ffffff")
-          .set("stroke", "#000")
+          .set("fill", self.theme.color.rect.fill)
+          .set("stroke", self.theme.color.rect.frame)
           .set("stroke-width", 1);
         let rect_element2 = rect_element1.clone().set("y", y + vertical_height);
 
@@ -118,7 +121,8 @@ impl Sequence {
           .set("x2", x)
           .set("y2", y + height)
           // .set("stroke-dasharray", "4")
-          .set("stroke", "#e74c3c");
+          .set("stroke", self.theme.color.line.second);
+        println!("{}", self.theme.color.line.second);
         Group::new().add(path)
       })
       .collect()
@@ -141,7 +145,7 @@ impl Sequence {
           .set("y1", y1)
           .set("x2", x2)
           .set("y2", y2)
-          .set("stroke", "#e7afff")
+          .set("stroke", self.theme.color.line.primary)
           .set("marker-end", "url(#m)");
         let x_mid = (x1 + x2) / 2;
         let y_mid = (y1 + y2) / 2; // 実際には y1 == y2;
@@ -151,7 +155,7 @@ impl Sequence {
         let text_element = svg::node::element::Text::new()
           .add(text_node)
           .set("text-anchor", "middle")
-          .set("fill", "#ffffff")
+          .set("fill", self.theme.color.text_primary)
           .set("font-size", FONT_SIZE)
           .set("x", x)
           .set("y", y);
@@ -185,7 +189,7 @@ impl MakeSvg for Sequence {
     res
   }
 
-  fn bounding_box(&self)-> (usize, usize, usize, usize) {
+  fn bounding_box(&self) -> (usize, usize, usize, usize) {
     let x =
       2 * X_INDEX + (self.max_length * FONT_SIZE + PADDING * 2 + MARGIN * 2) * self.nodes.len();
     let y = 2 * Y_INDEX + RECT_HEIGHT * 2 + self.get_vertical_height();

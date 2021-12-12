@@ -1,6 +1,7 @@
 use svg::node::element::Group;
 pub mod helper;
 pub mod uml;
+pub mod theme;
 #[cfg(test)]
 mod test;
 
