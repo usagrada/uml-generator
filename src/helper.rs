@@ -5,7 +5,7 @@ where
   T: Node,
 {
   for (key, value) in values.iter() {
-    elemenet.assign(key, value.to_string());
+    elemenet.assign(key, value.to_owned());
   }
   elemenet
 }
