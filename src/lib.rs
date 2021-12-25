@@ -1,9 +1,9 @@
 use svg::node::element::Group;
 pub mod helper;
-pub mod uml;
-pub mod theme;
 #[cfg(test)]
 mod test;
+pub mod theme;
+pub mod uml;
 
 #[macro_export]
 macro_rules! make_vec {

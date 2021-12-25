@@ -11,10 +11,8 @@ pub struct Theme {
 }
 
 impl Theme {
-  pub fn new(name: ThemeName) -> Self {
-    let color = match name {
-      _ => DEFAULT_COLOR,
-    };
+  pub fn new(_name: ThemeName) -> Self {
+    let color = DEFAULT_COLOR;
 
     Self { color }
   }
@@ -50,4 +48,3 @@ const DEFAULT_COLOR: ColorScheme = ColorScheme {
   },
   text_primary: "#000000",
 };
-

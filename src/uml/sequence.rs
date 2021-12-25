@@ -1,4 +1,9 @@
-use crate::{helper::make_element, make_vec, theme::{Theme, ThemeName}, MakeSvg};
+use crate::{
+  helper::make_element,
+  make_vec,
+  theme::{Theme, ThemeName},
+  MakeSvg,
+};
 use svg::node::element::{Group, Line, Rectangle};
 
 const RECT_HEIGHT: usize = 20;
@@ -19,22 +24,21 @@ pub struct Sequence {
   theme: Theme,
 }
 #[derive(Debug)]
-pub struct Edge(usize, usize, String);
+struct Edge(usize, usize, String);
 
 #[derive(Debug)]
-pub struct Node {
+struct Node {
   name: String,
 }
 
 #[allow(dead_code)]
 impl Sequence {
   pub fn new(theme: ThemeName) -> Self {
-
     Sequence {
       nodes: vec![],
       edges: vec![],
       max_length: 0,
-      theme: Theme::new(theme)
+      theme: Theme::new(theme),
     }
   }
 

@@ -1,6 +1,6 @@
 use svg::node::{Node, Value};
 
-pub fn make_element<T>(mut elemenet: T, values: &Vec<(String, Value)>) -> T
+pub fn make_element<T>(mut elemenet: T, values: &[(String, Value)]) -> T
 where
   T: Node,
 {
