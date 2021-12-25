@@ -110,6 +110,7 @@ impl Sequence {
   fn get_vertical_height(&self) -> usize {
     std::cmp::max(DEFAULT_HEIGHT, (self.edges.len() + 1) * VERTICAL_HEIGHT)
   }
+
   fn make_vertical_line(&self) -> Vec<Group> {
     let height = self.get_vertical_height();
     self
@@ -183,15 +184,19 @@ impl Sequence {
 }
 
 impl MakeSvg for Sequence {
-  fn make_svg(&self) -> Vec<Group> {
-    let mut res = self.make_vertical_line();
-    for group in self.make_node() {
-      res.push(group);
+  fn make_svg(&self) -> Group {
+    let mut sequence_group = Group::new();
+    for vline in self.make_vertical_line(){
+      sequence_group = sequence_group.add(vline);
     }
-    for group in self.make_horizontal_line() {
-      res.push(group);
+    for node in self.make_node() {
+      sequence_group = sequence_group.add(node);
     }
-    res
+    for hline in self.make_horizontal_line() {
+      sequence_group = sequence_group.add(hline);
+    }
+
+    sequence_group
   }
 
   fn bounding_box(&self) -> (usize, usize, usize, usize) {

@@ -1,5 +1,6 @@
 <svg viewBox="0 0 264 230" xmlns="http://www.w3.org/2000/svg">
 <g>
+<g>
 <line stroke="#e74c3c" x1="43" x2="43" y1="30" y2="180"/>
 </g>
 <g>
@@ -74,5 +75,6 @@ result
 <text fill="#000000" font-size="8" text-anchor="middle" x="127" y="142">
 result
 </text>
+</g>
 </g>
 </svg>

@@ -1,4 +1,5 @@
 use svg::node::element::Group;
+use svg::Document;
 pub mod helper;
 #[cfg(test)]
 mod test;
@@ -12,5 +13,10 @@ macro_rules! make_vec {
 
 pub trait MakeSvg {
   fn bounding_box(&self) -> (usize, usize, usize, usize);
-  fn make_svg(&self) -> Vec<Group>;
+  fn make_svg(&self) -> Group;
+  fn make_img<T: Into<String>>(&self, name: T) {
+    let svg = self.make_svg();
+    let document = Document::new().set("viewBox", self.bounding_box()).add(svg);
+    svg::save(name.into(), &document).unwrap();
+  }
 }

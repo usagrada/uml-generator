@@ -14,12 +14,9 @@ fn test_sequence() {
   s.add_edges(("test4", "test3", "result"));
   s.add_edges(("test2", "test3", "result"));
 
-  let a = s.make_svg();
+  let sequence = s.make_svg();
   let bb = s.bounding_box();
-  let mut document = Document::new().set("viewBox", bb);
-  for value in a.iter() {
-    document = document.add(value.clone());
-  }
+  let document = Document::new().set("viewBox", bb).add(sequence);
 
   svg::save("img/sequence.svg", &document).unwrap();
 }

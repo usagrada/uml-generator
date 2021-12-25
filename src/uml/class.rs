@@ -1,21 +1,69 @@
-use crate::theme::Theme;
+use crate::theme::{Theme, ThemeName};
+use crate::MakeSvg;
 use svg::node::element::{Group, Line, Rectangle, Text};
 use svg::node::Text as TextNode;
 
-const RECT_HEIGHT: usize = 20;
 const FONT_SIZE: usize = 8;
 const PADDING: usize = 3;
 const MARGIN: usize = 5;
-const X_INDEX: usize = 20;
-const Y_INDEX: usize = 20;
-const DEFAULT_HEIGHT: usize = 100;
-const VERTICAL_HEIGHT: usize = 30;
 
 #[allow(dead_code)]
 pub struct Class {
   pub name: String,
   nodes: Vec<Node>,
   theme: Theme,
+}
+
+impl Class {
+  pub fn new() -> Self {
+    Self {
+      name: "hello world".to_string(),
+      nodes: vec![],
+      theme: Theme::new(ThemeName::Default),
+    }
+  }
+
+  pub fn add_class(&mut self, name: &str, elements: &[(bool, &str)], methods: &[(bool, &str)]) {
+    self.nodes.push(Node {
+      name: name.to_string(),
+      elements: elements.iter().map(|&e| Element::new(e)).collect(),
+      methods: methods.iter().map(|&m| Method::new(m)).collect(),
+    });
+  }
+}
+
+impl MakeSvg for Class {
+  fn make_svg(&self) -> Group {
+    let mut group = Group::new();
+    for (index, node) in self.nodes.iter().enumerate() {
+      group = group.add(
+        node
+          .make_svg(&self.theme)
+          .set("transform", format!("translate(0, {})", 120 * index)),
+      )
+    }
+    group.set("transform", "translate(10, 10)")
+  }
+
+  fn bounding_box(&self) -> (usize, usize, usize, usize) {
+    let x = 100;
+    let y = 100;
+    (0, 0, x, y)
+  }
+}
+
+#[test]
+fn class_test() {
+  let mut class = Class::new();
+  class.add_class("hello world", &[], &[]);
+  assert!(
+    class.nodes
+      == vec![Node {
+        name: String::from("hello world"),
+        elements: vec![],
+        methods: vec![],
+      }]
+  );
 }
 
 #[allow(dead_code)]
@@ -194,40 +242,4 @@ impl Method {
 struct Method {
   public: bool,
   name: String,
-}
-
-impl Class {
-  pub fn new() -> Self {
-    Self {
-      name: "hello world".to_string(),
-      nodes: vec![],
-      theme: Theme::new(crate::theme::ThemeName::Default),
-    }
-  }
-
-  pub fn add_class(&mut self, name: &str, elements: &[(bool, &str)], methods: &[(bool, &str)]) {
-    self.nodes.push(Node {
-      name: name.to_string(),
-      elements: elements.iter().map(|&e| Element::new(e)).collect(),
-      methods: methods.iter().map(|&m| Method::new(m)).collect(),
-    });
-  }
-
-  pub fn make_svg(&self) -> Group {
-    self.nodes[0].make_svg(&self.theme)
-  }
-}
-
-#[test]
-fn class_test() {
-  let mut class = Class::new();
-  class.add_class("hello world", &[], &[]);
-  assert!(
-    class.nodes
-      == vec![Node {
-        name: String::from("hello world"),
-        elements: vec![],
-        methods: vec![],
-      }]
-  );
 }
