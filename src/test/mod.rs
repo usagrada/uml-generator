@@ -1,1 +1,2 @@
 mod sequence;
+mod class;

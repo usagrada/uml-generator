@@ -4,7 +4,8 @@ use crate::{
   theme::{Theme, ThemeName},
   MakeSvg,
 };
-use svg::node::element::{Group, Line, Rectangle};
+use svg::node::element::{Group, Line, Rectangle, Text};
+use svg::node::Text as TextNode;
 
 const RECT_HEIGHT: usize = 20;
 const FONT_SIZE: usize = 8;
@@ -71,7 +72,7 @@ impl Sequence {
       .enumerate()
       .map(|(index, obj)| {
         let (x, y) = self.position(index);
-        let text_node = svg::node::Text::new(&obj.name);
+        let text_node = TextNode::new(&obj.name);
         let option = make_vec![
           ("x", x + rect_width / 2),
           ("y", y + RECT_HEIGHT / 2),
@@ -80,7 +81,7 @@ impl Sequence {
           ("dominant-baseline", "central"),
           ("font-size", FONT_SIZE)
         ];
-        let text_element1 = make_element(svg::node::element::Text::new(), &option).add(text_node);
+        let text_element1 = make_element(Text::new(), &option).add(text_node);
         let text_element2 = text_element1
           .clone()
           .set("y", y + vertical_height + RECT_HEIGHT / 2);
@@ -155,8 +156,8 @@ impl Sequence {
         let y_mid = (y1 + y2) / 2; // 実際には y1 == y2;
         let x = x_mid;
         let y = y_mid - FONT_SIZE;
-        let text_node = svg::node::Text::new(&value.2);
-        let text_element = svg::node::element::Text::new()
+        let text_node = TextNode::new(&value.2);
+        let text_element = Text::new()
           .add(text_node)
           .set("text-anchor", "middle")
           .set("fill", self.theme.color.text_primary)
