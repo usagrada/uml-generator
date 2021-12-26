@@ -4,6 +4,7 @@ use crate::{
   theme::{Theme, ThemeName},
   MakeSvg,
 };
+use std::collections::{HashMap, HashSet};
 use svg::node::element::Group;
 use svg::Document;
 
@@ -17,17 +18,17 @@ const DEFAULT_HEIGHT: usize = 100;
 const VERTICAL_HEIGHT: usize = 30;
 
 #[allow(dead_code)]
-#[derive(Debug)]
 pub struct Sequence {
-  nodes: Vec<Node>,
+  nodes: HashMap<Node, usize>,
   edges: Vec<Edge>,
   max_length: usize,
+  markers: HashSet<Markers>,
   theme: Theme,
 }
-#[derive(Debug)]
-struct Edge(usize, usize, String);
 
-#[derive(Debug)]
+struct Edge(usize, usize, String, Markers);
+
+#[derive(PartialEq, Eq, Hash)]
 struct Node {
   name: String,
 }
@@ -36,28 +37,34 @@ struct Node {
 impl Sequence {
   pub fn new(theme: ThemeName) -> Self {
     Sequence {
-      nodes: vec![],
+      nodes: HashMap::new(),
       edges: vec![],
+      markers: HashSet::new(),
       max_length: 0,
       theme: Theme::new(theme),
     }
   }
 
   pub fn add_nodes(&mut self, text: &str) -> &Self {
-    self.nodes.push(Node {
-      name: text.to_string(),
-    });
+    self.nodes.insert(
+      Node {
+        name: text.to_string(),
+      },
+      self.nodes.len(),
+    );
     self.max_length = std::cmp::max(self.max_length, text.len());
     self
   }
 
-  pub fn add_edges(&mut self, edge: (&str, &str, &str)) -> &Self {
-    let (start, end, text) = edge;
-    let source_index = self.nodes.iter().position(|x| x.name == start);
-    let target_index = self.nodes.iter().position(|x| x.name == end);
+  pub fn add_edges(&mut self, edge: (&str, &str, &str, Markers)) -> &Self {
+    // TODO
+    let (start, end, text, marker) = edge;
+    self.markers.insert(marker.clone());
+    let source_index = self.nodes.get(&Node { name: start.into() });
+    let target_index = self.nodes.get(&Node { name: end.into() });
 
     match (source_index, target_index) {
-      (Some(s), Some(t)) => self.edges.push(Edge(s, t, text.to_string())),
+      (Some(&s), Some(&t)) => self.edges.push(Edge(s, t, text.to_string(), marker)),
       (_, _) => println!("invalid error"),
     }
     self
@@ -70,10 +77,10 @@ impl Sequence {
       .nodes
       .iter()
       .enumerate()
-      .map(|(index, obj)| {
+      .map(|(index, (node, _))| {
         let (x, y) = self.position(index);
         let text_element1 = {
-          let text = make_text(&obj.name).position(x + rect_width / 2, y + RECT_HEIGHT / 2);
+          let text = make_text(&node.name).position(x + rect_width / 2, y + RECT_HEIGHT / 2);
           let option = make_vec![
             ("fill", self.theme.color.rect.text),
             ("text-anchor", "middle"),
@@ -144,7 +151,7 @@ impl Sequence {
         let path = (x1, y1, x2, y2)
           .make_line()
           .set("stroke", self.theme.color.line.primary)
-          .set("marker-end", "url(#m)");
+          .add_marker_end(&value.3);
         let x_mid = (x1 + x2) >> 1;
         let y_mid = (y1 + y2) >> 1; // 実際には y1 == y2;
         let x = x_mid;
@@ -184,9 +191,16 @@ impl MakeSvg for Sequence {
     for hline in self.make_horizontal_line() {
       sequence_group = sequence_group.add(hline);
     }
+    use svg::node::element::{Definitions, Marker};
+    let mut defs = Definitions::new();
+    for markers in self.markers.iter() {
+      let marker_svg = markers.make_svg();
+      defs = defs.add(marker_svg);
+    }
 
     Document::new()
       .set("viewBox", self.bounding_box())
+      .add(defs)
       .add(sequence_group)
   }
 
@@ -198,8 +212,8 @@ impl MakeSvg for Sequence {
   }
 }
 
-// <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5"
-//         markerWidth="5" markerHeight="5"
-//         orient="auto-start-reverse">
-//       <path d="M 0 0 L 10 5 L 0 10 z" />
+// <marker id="arrow" ="" 
+//         
+//         
+//       
 //     </marker>

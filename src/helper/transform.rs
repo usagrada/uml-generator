@@ -1,4 +1,6 @@
 use svg::node::element::{Circle, Ellipse, Group, Rectangle, Text};
+use svg::Node;
+
 pub trait Transform {
   fn transform(self, x: usize, y: usize) -> Self;
 }
@@ -9,15 +11,18 @@ impl Transform for Group {
   }
 }
 
-pub trait Position {
-  fn position(self, x: usize, y: usize) -> Self;
-}
-
-impl Position for Rectangle {
-  fn position(self, x: usize, y: usize) -> Self {
-    self.set("x", x).set("y", y)
+pub trait Position
+where
+  Self: Sized + Node,
+{
+  fn position(mut self, x: usize, y: usize) -> Self {
+    self.assign("x", x);
+    self.assign("y", y);
+    self
   }
 }
+
+impl Position for Rectangle {}
 
 impl Position for Circle {
   fn position(self, x: usize, y: usize) -> Self {
@@ -31,8 +36,4 @@ impl Position for Ellipse {
   }
 }
 
-impl Position for Text {
-  fn position(self, x: usize, y: usize) -> Self {
-    self.set("x", x).set("y", y)
-  }
-}
+impl Position for Text {}

@@ -1,5 +1,4 @@
 use crate::{uml::ClassUML, MakeSvg};
-use svg::Document;
 
 #[test]
 fn test_class() {
@@ -18,9 +17,7 @@ fn test_class() {
     &[(true, "method1"), (true, "method2"), (false, "method3")],
   );
 
-  let document = Document::new()
-    .set("viewBox", c.bounding_box())
-    .add(c.make_svg());
+  let svg = c.make_svg();
 
-  svg::save("img/class.svg", &document).unwrap();
+  svg::save("img/class.svg", &svg).unwrap();
 }
