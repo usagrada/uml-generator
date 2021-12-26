@@ -21,6 +21,23 @@ where
   elemenet
 }
 
+pub trait SetValue
+where
+  Self: Sized + Node,
+{
+  fn set_values(mut self, values: &Vec<(String, Value)>) -> Self {
+    for (key, value) in values {
+      self.assign(key, value.clone());
+    }
+    self
+  }
+}
+
+impl SetValue for Rectangle {}
+impl SetValue for Ellipse {}
+impl SetValue for Circle {}
+impl SetValue for Text {}
+
 pub trait BackgroundColor {
   fn change_background_color(self, color: String) -> Self;
 }
