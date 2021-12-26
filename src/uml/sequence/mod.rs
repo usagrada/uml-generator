@@ -76,8 +76,7 @@ impl Sequence {
     self
       .nodes
       .iter()
-      .enumerate()
-      .map(|(index, (node, _))| {
+      .map(|(node, &index)| {
         let (x, y) = self.position(index);
         let text_element1 = {
           let text = make_text(&node.name).position(x + rect_width / 2, y + RECT_HEIGHT / 2);
@@ -191,7 +190,7 @@ impl MakeSvg for Sequence {
     for hline in self.make_horizontal_line() {
       sequence_group = sequence_group.add(hline);
     }
-    use svg::node::element::{Definitions, Marker};
+    use svg::node::element::Definitions;
     let mut defs = Definitions::new();
     for markers in self.markers.iter() {
       let marker_svg = markers.make_svg();
@@ -212,8 +211,8 @@ impl MakeSvg for Sequence {
   }
 }
 
-// <marker id="arrow" ="" 
-//         
-//         
-//       
+// <marker id="arrow" =""
+//
+//
+//
 //     </marker>

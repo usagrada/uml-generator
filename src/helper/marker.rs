@@ -1,4 +1,4 @@
-use svg::node::element::{Line, Marker, Path};
+use svg::node::element::{Marker, Path};
 
 #[derive(PartialEq, Eq, Hash, Clone)]
 pub enum Markers {
