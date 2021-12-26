@@ -1,5 +1,6 @@
 use svg::node::element::{Circle, Ellipse, Line, Rectangle, Text};
 use svg::node::{Node, Text as TextNode, Value};
+use svg::Document;
 
 mod line;
 mod marker;
@@ -18,6 +19,17 @@ where
     elemenet.assign(key, value.to_owned());
   }
   elemenet
+}
+
+pub trait BackgroundColor {
+  fn change_background_color(self, color: String) -> Self;
+}
+
+impl BackgroundColor for Document {
+  fn change_background_color(mut self, color: String) -> Self {
+    self.assign("style", format!("background-color:{}", color));
+    self
+  }
 }
 
 pub fn make_pair<K, V>(prop: (K, V)) -> (String, Value)

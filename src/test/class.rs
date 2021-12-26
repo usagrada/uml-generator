@@ -1,4 +1,4 @@
-use crate::{uml::ClassUML, MakeSvg};
+use crate::{uml::ClassUML, MakeSvg, helper::*};
 
 #[test]
 fn test_class() {
@@ -17,7 +17,7 @@ fn test_class() {
     &[(true, "method1"), (true, "method2"), (false, "method3")],
   );
 
-  let svg = c.make_svg();
+  let svg = c.make_svg().change_background_color("#fff".into());
 
   svg::save("img/class.svg", &svg).unwrap();
 }

@@ -1,5 +1,5 @@
 use crate::helper::Markers;
-use crate::{theme::ThemeName, uml::Sequence, MakeSvg};
+use crate::{helper::*, theme::ThemeName, uml::Sequence, MakeSvg};
 
 #[test]
 fn test_sequence() {
@@ -14,7 +14,7 @@ fn test_sequence() {
   s.add_edges(("test4", "test3", "result", Markers::Array));
   s.add_edges(("test2", "test3", "result", Markers::Array));
 
-  let svg = s.make_svg();
+  let svg = s.make_svg().change_background_color("#fff".into());
 
   svg::save("img/sequence.svg", &svg).unwrap();
 }

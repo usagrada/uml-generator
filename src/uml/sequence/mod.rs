@@ -210,9 +210,3 @@ impl MakeSvg for Sequence {
     (0, 0, x, y)
   }
 }
-
-// <marker id="arrow" =""
-//
-//
-//
-//     </marker>
