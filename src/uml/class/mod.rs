@@ -1,21 +1,21 @@
+use crate::helper::*;
 use crate::theme::{Theme, ThemeName};
 use crate::MakeSvg;
 use svg::node::element::{Group, Line, Rectangle, Text};
 use svg::node::Text as TextNode;
-use crate::helper::*;
 
 const FONT_SIZE: usize = 8;
 const PADDING: usize = 3;
 const MARGIN: usize = 5;
 
 #[allow(dead_code)]
-pub struct Class {
+pub struct ClassUML {
   pub name: String,
   nodes: Vec<ClassNode>,
   theme: Theme,
 }
 
-impl Class {
+impl ClassUML {
   pub fn new<T: Into<String>>(name: T) -> Self {
     Self {
       name: name.into(),
@@ -33,7 +33,7 @@ impl Class {
   }
 }
 
-impl MakeSvg for Class {
+impl MakeSvg for ClassUML {
   fn make_svg(&self) -> Group {
     let mut group = Group::new();
     for (index, node) in self.nodes.iter().enumerate() {
@@ -51,7 +51,7 @@ impl MakeSvg for Class {
 
 #[test]
 fn class_test() {
-  let mut class = Class::new("class component");
+  let mut class = ClassUML::new("class component");
   class.add_class("hello world", &[], &[]);
   assert!(
     class.nodes
