@@ -1,10 +1,10 @@
-use crate::{uml::class, MakeSvg};
+use crate::{uml::Class, MakeSvg};
 use svg::Document;
 
 #[test]
 fn test_class() {
   // let theme = ThemeName::Default;
-  let mut c = class::Class::new();
+  let mut c = Class::new("hello world");
 
   c.add_class(
     "class element",

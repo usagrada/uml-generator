@@ -2,7 +2,7 @@ use crate::theme::{Theme, ThemeName};
 use crate::MakeSvg;
 use svg::node::element::{Group, Line, Rectangle, Text};
 use svg::node::Text as TextNode;
-
+use crate::helper::*;
 
 const FONT_SIZE: usize = 8;
 const PADDING: usize = 3;
@@ -16,9 +16,9 @@ pub struct Class {
 }
 
 impl Class {
-  pub fn new() -> Self {
+  pub fn new<T: Into<String>>(name: T) -> Self {
     Self {
-      name: "hello world".to_string(),
+      name: name.into(),
       nodes: vec![],
       theme: Theme::new(ThemeName::Default),
     }
@@ -37,13 +37,9 @@ impl MakeSvg for Class {
   fn make_svg(&self) -> Group {
     let mut group = Group::new();
     for (index, node) in self.nodes.iter().enumerate() {
-      group = group.add(
-        node
-          .make_svg(&self.theme)
-          .set("transform", format!("translate(0, {})", 120 * index)),
-      )
+      group = group.add(node.make_svg(&self.theme).transform(0, 120 * index))
     }
-    group.set("transform", "translate(10, 10)")
+    group.transform(10, 10)
   }
 
   fn bounding_box(&self) -> (usize, usize, usize, usize) {
@@ -55,7 +51,7 @@ impl MakeSvg for Class {
 
 #[test]
 fn class_test() {
-  let mut class = Class::new();
+  let mut class = Class::new("class component");
   class.add_class("hello world", &[], &[]);
   assert!(
     class.nodes
@@ -165,14 +161,7 @@ impl ClassNode {
 }
 
 fn make_rect(width: usize, height: usize, theme: &Theme) -> Rectangle {
-  Rectangle::new()
-    .set("width", width)
-    .set("height", height)
-    // .set("rx", 5)
-    // .set("ry", 5)
-    .set("fill", theme.color.rect.fill)
-    .set("stroke", theme.color.rect.frame)
-    .set("stroke-width", 1)
+  (width, height).make_rect().set_theme(theme)
 }
 
 #[derive(PartialEq)]

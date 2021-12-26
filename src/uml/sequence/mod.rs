@@ -186,7 +186,7 @@ impl Sequence {
 impl MakeSvg for Sequence {
   fn make_svg(&self) -> Group {
     let mut sequence_group = Group::new();
-    for vline in self.make_vertical_line(){
+    for vline in self.make_vertical_line() {
       sequence_group = sequence_group.add(vline);
     }
     for node in self.make_node() {

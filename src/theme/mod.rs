@@ -5,6 +5,8 @@ pub enum ThemeName {
   Default,
 }
 
+pub static mut GLOBAL_THEME: ThemeName = ThemeName::Default;
+
 #[derive(Debug)]
 pub struct Theme {
   pub color: ColorScheme,
@@ -13,7 +15,6 @@ pub struct Theme {
 impl Theme {
   pub fn new(_name: ThemeName) -> Self {
     let color = DEFAULT_COLOR;
-
     Self { color }
   }
 }

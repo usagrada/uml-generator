@@ -1,10 +1,10 @@
-use crate::{theme::ThemeName, uml::sequence, MakeSvg};
+use crate::{theme::ThemeName, uml::Sequence, MakeSvg};
 use svg::Document;
 
 #[test]
 fn test_sequence() {
   let theme = ThemeName::Default;
-  let mut s = sequence::Sequence::new(theme);
+  let mut s = Sequence::new(theme);
   s.add_nodes("test1");
   s.add_nodes("test2");
   s.add_nodes("test3");
