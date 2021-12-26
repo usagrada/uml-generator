@@ -1,6 +1,6 @@
 use svg::node::element::{Marker, Path};
 
-#[derive(PartialEq, Eq, Hash, Clone)]
+#[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub enum Markers {
   None,
   Array,

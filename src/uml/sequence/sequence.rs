@@ -1,4 +1,6 @@
 use super::edge::Edge;
+use super::node::Node;
+use super::*;
 use crate::{
   helper::*,
   make_vec,
@@ -8,10 +10,6 @@ use crate::{
 use std::collections::{HashMap, HashSet};
 use svg::node::element::Group;
 use svg::Document;
-
-use super::node::Node;
-use super::values::*;
-use super::{position, rect_width};
 
 pub struct Sequence {
   nodes: HashMap<Node, usize>,
@@ -155,7 +153,7 @@ impl Sequence {
         let path = (x1, y_path, x2, y_path)
           .make_line()
           .set("stroke", self.theme.color.line.primary)
-          .add_marker_end(value.marker_type());
+          .add_marker_end(&value.marker_type());
         let x_mid = (x1 + x2) >> 1;
         let x = x_mid;
         let y = y_path - FONT_SIZE;

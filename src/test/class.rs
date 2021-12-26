@@ -1,8 +1,7 @@
-use crate::{uml::ClassUML, MakeSvg, helper::*};
+use crate::{helper::*, uml::ClassUML, MakeSvg};
 
 #[test]
 fn test_class() {
-  // let theme = ThemeName::Default;
   let mut c = ClassUML::new("hello world");
 
   c.add_class(

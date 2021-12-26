@@ -1,4 +1,4 @@
-mod sequence;
-pub use sequence::Sequence;
 mod class;
-pub use class::*;
+mod sequence;
+pub use class::ClassUML;
+pub use sequence::Sequence;
