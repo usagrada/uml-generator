@@ -1,11 +1,10 @@
 use crate::{
-  helper::make_element,
+  helper::*,
   make_vec,
   theme::{Theme, ThemeName},
   MakeSvg,
 };
-use svg::node::element::{Group, Line, Rectangle, Text};
-use svg::node::Text as TextNode;
+use svg::node::element::{Group, };
 
 const RECT_HEIGHT: usize = 20;
 const FONT_SIZE: usize = 8;
@@ -72,7 +71,6 @@ impl Sequence {
       .enumerate()
       .map(|(index, obj)| {
         let (x, y) = self.position(index);
-        let text_node = TextNode::new(&obj.name);
         let option = make_vec![
           ("x", x + rect_width / 2),
           ("y", y + RECT_HEIGHT / 2),
@@ -81,21 +79,20 @@ impl Sequence {
           ("dominant-baseline", "central"),
           ("font-size", FONT_SIZE)
         ];
-        let text_element1 = make_element(Text::new(), &option).add(text_node);
+        let text_element1 = make_element(make_text(&obj.name), &option);
         let text_element2 = text_element1
           .clone()
           .set("y", y + vertical_height + RECT_HEIGHT / 2);
 
-        let rect_element1 = Rectangle::new()
-          .set("x", x)
-          .set("y", y)
-          .set("rx", 2)
-          .set("ry", 2)
+        let rect_element1 = (x, y)
+          .make_rect()
+          .set("rx", 2usize)
+          .set("ry", 2usize)
           .set("width", rect_width)
           .set("height", RECT_HEIGHT)
           .set("fill", self.theme.color.rect.fill)
           .set("stroke", self.theme.color.rect.frame)
-          .set("stroke-width", 1);
+          .set("stroke-width", 1usize);
         let rect_element2 = rect_element1.clone().set("y", y + vertical_height);
 
         Group::new()
@@ -121,11 +118,8 @@ impl Sequence {
         let (mut x, mut y) = self.position(index);
         x += self.rect_width() / 2;
         y += RECT_HEIGHT / 2;
-        let path = Line::new()
-          .set("x1", x)
-          .set("y1", y)
-          .set("x2", x)
-          .set("y2", y + height)
+        let path = (x, y, x, y + height)
+          .make_line()
           // .set("stroke-dasharray", "4")
           .set("stroke", self.theme.color.line.second);
         println!("{}", self.theme.color.line.second);
@@ -146,20 +140,15 @@ impl Sequence {
         y1 += RECT_HEIGHT / 2 + VERTICAL_HEIGHT * (index + 1);
         x2 += self.rect_width() / 2;
         y2 += RECT_HEIGHT / 2 + VERTICAL_HEIGHT * (index + 1);
-        let path = Line::new()
-          .set("x1", x1)
-          .set("y1", y1)
-          .set("x2", x2)
-          .set("y2", y2)
+        let path = (x1, y1, x2, y2)
+          .make_line()
           .set("stroke", self.theme.color.line.primary)
           .set("marker-end", "url(#m)");
         let x_mid = (x1 + x2) / 2;
         let y_mid = (y1 + y2) / 2; // 実際には y1 == y2;
         let x = x_mid;
         let y = y_mid - FONT_SIZE;
-        let text_node = TextNode::new(&value.2);
-        let text_element = Text::new()
-          .add(text_node)
+        let text_element = make_text(&value.2)
           .set("text-anchor", "middle")
           .set("fill", self.theme.color.text_primary)
           .set("font-size", FONT_SIZE)

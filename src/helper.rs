@@ -1,6 +1,5 @@
-use crate::theme::Theme;
-use svg::node::element::{Circle, Ellipse, Rectangle};
-use svg::node::{Node, Value};
+use svg::node::element::{Circle, Ellipse, Line, Rectangle, Text};
+use svg::node::{Node, Text as TextNode, Value};
 
 mod theme;
 mod transform;
@@ -25,7 +24,7 @@ where
   (prop.0.into(), prop.1.into())
 }
 
-pub fn make_rect(width: usize, height: usize, _theme: &Theme) -> Rectangle {
+pub fn make_rect(width: usize, height: usize) -> Rectangle {
   Rectangle::new().set("width", width).set("height", height)
 }
 
@@ -37,14 +36,14 @@ pub trait MakeRect {
 impl MakeRect for usize {
   /// 正方形を作るための関数
   fn make_rect(self) -> Rectangle {
-    Rectangle::new().set("width", self).set("height", self)
+    make_rect(self, self)
   }
 }
 
 impl MakeRect for (usize, usize) {
   /// 長方形を作るための関数
   fn make_rect(self) -> Rectangle {
-    Rectangle::new().set("width", self.0).set("height", self.1)
+    make_rect(self.0, self.1)
   }
 }
 
@@ -54,6 +53,11 @@ fn make_rect_from_usize() {
   println!("{}", 2.make_rect());
 }
 
+/// 円を作るための関数
+pub fn make_circle(radius: usize) -> Circle {
+  Circle::new().set("r", radius)
+}
+
 pub trait MakeCircle {
   /// 円を作るための関数
   fn make_circle(self) -> Circle;
@@ -61,19 +65,13 @@ pub trait MakeCircle {
 
 impl MakeCircle for usize {
   fn make_circle(self) -> Circle {
-    Circle::new()
-      .set("cx", 0usize)
-      .set("cy", 0usize)
-      .set("r", self)
+    make_circle(self).set("cx", 0usize).set("cy", 0usize)
   }
 }
 
 impl MakeCircle for (usize, usize, usize) {
   fn make_circle(self) -> Circle {
-    Circle::new()
-      .set("cx", self.0)
-      .set("cy", self.1)
-      .set("r", self.2)
+    make_circle(self.2).set("cx", self.0).set("cy", self.1)
   }
 }
 
@@ -86,6 +84,11 @@ fn make_circle_from_usize3() {
   3.make_circle();
 }
 
+/// makeEllipse
+pub fn make_ellipse(rx: usize, ry: usize) -> Ellipse {
+  Ellipse::new().set("rx", rx).set("ry", ry)
+}
+
 pub trait MakeEllipse {
   /// 楕円を作るための関数
   fn make_ellipse(self) -> Ellipse;
@@ -93,20 +96,55 @@ pub trait MakeEllipse {
 
 impl MakeEllipse for (usize, usize) {
   fn make_ellipse(self) -> Ellipse {
-    Ellipse::new()
-      .set("cx", 0)
-      .set("cy", 0)
-      .set("rx", self.0)
-      .set("ry", self.1)
+    make_ellipse(self.0, self.1).set("cx", 0).set("cy", 0)
   }
 }
 
 impl MakeEllipse for (usize, usize, usize, usize) {
   fn make_ellipse(self) -> Ellipse {
-    Ellipse::new()
+    make_ellipse(self.2, self.3)
       .set("cx", self.0)
       .set("cy", self.1)
-      .set("rx", self.2)
-      .set("ry", self.3)
   }
 }
+/// makeLine 
+pub fn make_line(x1: usize, y1: usize, x2: usize, y2: usize) -> Line {
+  Line::new()
+    .set("x1", x1)
+    .set("y1", y1)
+    .set("x2", x2)
+    .set("y2", y2)
+}
+
+pub trait MakeLine {
+  fn make_line(self) -> Line;
+}
+
+impl MakeLine for (usize, usize) {
+  fn make_line(self) -> Line {
+    make_line(0, 0, self.0, self.1)
+  }
+}
+
+impl MakeLine for (usize, usize, usize, usize) {
+  fn make_line(self) -> Line {
+    make_line(self.0, self.1, self.2, self.3)
+  }
+}
+
+/// makeText 
+pub fn make_text<T: Into<String>>(text: T) -> Text {
+  let text_node = TextNode::new(text.into());
+  Text::new().add(text_node)
+}
+
+pub trait MakeText {
+  fn make_text(self) -> Text;
+}
+
+impl MakeText for String {
+  fn make_text(self) -> Text {
+    make_text(self)
+  }
+}
+
