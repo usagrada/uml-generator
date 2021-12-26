@@ -1,8 +1,10 @@
 use svg::node::element::{Circle, Ellipse, Line, Rectangle, Text};
 use svg::node::{Node, Text as TextNode, Value};
 
+mod line;
 mod theme;
 mod transform;
+pub use line::*;
 pub use theme::*;
 pub use transform::*;
 

@@ -3,7 +3,7 @@ use crate::theme::{Theme, ThemeName};
 use crate::MakeSvg;
 use svg::node::element::{Group, Line, Rectangle, Text};
 use svg::node::Text as TextNode;
-
+use svg::Document;
 const FONT_SIZE: usize = 8;
 const PADDING: usize = 3;
 const MARGIN: usize = 5;
@@ -34,12 +34,15 @@ impl ClassUML {
 }
 
 impl MakeSvg for ClassUML {
-  fn make_svg(&self) -> Group {
+  fn make_svg(&self) -> Document {
     let mut group = Group::new();
     for (index, node) in self.nodes.iter().enumerate() {
       group = group.add(node.make_svg(&self.theme).transform(0, 120 * index))
     }
-    group.transform(10, 10)
+    group = group.transform(10, 10);
+    Document::new()
+      .add(group)
+      .set("viewBox", self.bounding_box())
   }
 
   fn bounding_box(&self) -> (usize, usize, usize, usize) {
