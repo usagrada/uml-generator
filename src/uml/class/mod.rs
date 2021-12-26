@@ -3,6 +3,7 @@ use crate::MakeSvg;
 use svg::node::element::{Group, Line, Rectangle, Text};
 use svg::node::Text as TextNode;
 
+
 const FONT_SIZE: usize = 8;
 const PADDING: usize = 3;
 const MARGIN: usize = 5;
@@ -10,7 +11,7 @@ const MARGIN: usize = 5;
 #[allow(dead_code)]
 pub struct Class {
   pub name: String,
-  nodes: Vec<Node>,
+  nodes: Vec<ClassNode>,
   theme: Theme,
 }
 
@@ -24,7 +25,7 @@ impl Class {
   }
 
   pub fn add_class(&mut self, name: &str, elements: &[(bool, &str)], methods: &[(bool, &str)]) {
-    self.nodes.push(Node {
+    self.nodes.push(ClassNode {
       name: name.to_string(),
       elements: elements.iter().map(|&e| Element::new(e)).collect(),
       methods: methods.iter().map(|&m| Method::new(m)).collect(),
@@ -46,8 +47,8 @@ impl MakeSvg for Class {
   }
 
   fn bounding_box(&self) -> (usize, usize, usize, usize) {
-    let x = 100;
-    let y = 100;
+    let x = 300;
+    let y = 300;
     (0, 0, x, y)
   }
 }
@@ -58,7 +59,7 @@ fn class_test() {
   class.add_class("hello world", &[], &[]);
   assert!(
     class.nodes
-      == vec![Node {
+      == vec![ClassNode {
         name: String::from("hello world"),
         elements: vec![],
         methods: vec![],
@@ -68,13 +69,13 @@ fn class_test() {
 
 #[allow(dead_code)]
 #[derive(PartialEq)]
-struct Node {
+struct ClassNode {
   name: String,
   elements: Vec<Element>,
   methods: Vec<Method>,
 }
 
-impl Node {
+impl ClassNode {
   fn make_svg(&self, theme: &Theme) -> Group {
     let node_rect = make_rect(100, 100, theme);
     let node_text = self.make_text();
@@ -167,8 +168,8 @@ fn make_rect(width: usize, height: usize, theme: &Theme) -> Rectangle {
   Rectangle::new()
     .set("width", width)
     .set("height", height)
-    .set("rx", 5)
-    .set("ry", 5)
+    // .set("rx", 5)
+    // .set("ry", 5)
     .set("fill", theme.color.rect.fill)
     .set("stroke", theme.color.rect.frame)
     .set("stroke-width", 1)
