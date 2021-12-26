@@ -65,13 +65,13 @@ pub trait MakeCircle {
 
 impl MakeCircle for usize {
   fn make_circle(self) -> Circle {
-    make_circle(self).set("cx", 0usize).set("cy", 0usize)
+    make_circle(self)
   }
 }
 
 impl MakeCircle for (usize, usize, usize) {
   fn make_circle(self) -> Circle {
-    make_circle(self.2).set("cx", self.0).set("cy", self.1)
+    make_circle(self.2).position(self.0, self.1)
   }
 }
 
@@ -96,18 +96,16 @@ pub trait MakeEllipse {
 
 impl MakeEllipse for (usize, usize) {
   fn make_ellipse(self) -> Ellipse {
-    make_ellipse(self.0, self.1).set("cx", 0).set("cy", 0)
+    make_ellipse(self.0, self.1)
   }
 }
 
 impl MakeEllipse for (usize, usize, usize, usize) {
   fn make_ellipse(self) -> Ellipse {
-    make_ellipse(self.2, self.3)
-      .set("cx", self.0)
-      .set("cy", self.1)
+    make_ellipse(self.2, self.3).position(self.0, self.1)
   }
 }
-/// makeLine 
+/// makeLine
 pub fn make_line(x1: usize, y1: usize, x2: usize, y2: usize) -> Line {
   Line::new()
     .set("x1", x1)
@@ -132,7 +130,7 @@ impl MakeLine for (usize, usize, usize, usize) {
   }
 }
 
-/// makeText 
+/// makeText
 pub fn make_text<T: Into<String>>(text: T) -> Text {
   let text_node = TextNode::new(text.into());
   Text::new().add(text_node)
@@ -147,4 +145,3 @@ impl MakeText for String {
     make_text(self)
   }
 }
-

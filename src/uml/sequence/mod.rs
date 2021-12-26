@@ -4,7 +4,7 @@ use crate::{
   theme::{Theme, ThemeName},
   MakeSvg,
 };
-use svg::node::element::{Group, };
+use svg::node::element::Group;
 
 const RECT_HEIGHT: usize = 20;
 const FONT_SIZE: usize = 8;
@@ -72,24 +72,22 @@ impl Sequence {
       .map(|(index, obj)| {
         let (x, y) = self.position(index);
         let option = make_vec![
-          ("x", x + rect_width / 2),
-          ("y", y + RECT_HEIGHT / 2),
           ("fill", self.theme.color.rect.text),
           ("text-anchor", "middle"),
           ("dominant-baseline", "central"),
           ("font-size", FONT_SIZE)
         ];
-        let text_element1 = make_element(make_text(&obj.name), &option);
+        let text_element1 = make_text(&obj.name).position(x + rect_width / 2, y + RECT_HEIGHT / 2);
+        let text_element1 = make_element(text_element1, &option);
         let text_element2 = text_element1
           .clone()
           .set("y", y + vertical_height + RECT_HEIGHT / 2);
 
-        let rect_element1 = (x, y)
+        let rect_element1 = (rect_width, RECT_HEIGHT)
           .make_rect()
+          .position(x, y)
           .set("rx", 2usize)
           .set("ry", 2usize)
-          .set("width", rect_width)
-          .set("height", RECT_HEIGHT)
           .set("fill", self.theme.color.rect.fill)
           .set("stroke", self.theme.color.rect.frame)
           .set("stroke-width", 1usize);
@@ -149,11 +147,10 @@ impl Sequence {
         let x = x_mid;
         let y = y_mid - FONT_SIZE;
         let text_element = make_text(&value.2)
+          .position(x, y)
           .set("text-anchor", "middle")
           .set("fill", self.theme.color.text_primary)
-          .set("font-size", FONT_SIZE)
-          .set("x", x)
-          .set("y", y);
+          .set("font-size", FONT_SIZE);
         Group::new().add(path).add(text_element)
       })
       .collect()
