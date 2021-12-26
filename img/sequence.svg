@@ -3,40 +3,19 @@
 <marker id="marker-1" markerHeight="5" markerWidth="5" orient="auto-start-reverse" refX="10" refY="5" viewBox="0 0 10 10">
 <path d="M 0 0 L 10 5 L 0 10 z"/>
 </marker>
-<marker id="marker-0"/>
 </defs>
 <g>
 <g>
-<line stroke="#e74c3c" x1="43" x2="43" y1="40" y2="170"/>
+<line stroke="#000" x1="43" x2="43" y1="40" y2="170"/>
 </g>
 <g>
-<line stroke="#e74c3c" x1="99" x2="99" y1="40" y2="170"/>
+<line stroke="#000" x1="99" x2="99" y1="40" y2="170"/>
 </g>
 <g>
-<line stroke="#e74c3c" x1="155" x2="155" y1="40" y2="170"/>
+<line stroke="#000" x1="155" x2="155" y1="40" y2="170"/>
 </g>
 <g>
-<line stroke="#e74c3c" x1="211" x2="211" y1="40" y2="170"/>
-</g>
-<g>
-<rect fill="#ffffff" height="20" rx="2" ry="2" stroke="#000000" stroke-width="1" width="46" x="20" y="20"/>
-<text dominant-baseline="central" fill="#000000" font-size="8" text-anchor="middle" x="43" y="30">
-test1
-</text>
-<rect fill="#ffffff" height="20" rx="2" ry="2" stroke="#000000" stroke-width="1" width="46" x="20" y="170"/>
-<text dominant-baseline="central" fill="#000000" font-size="8" text-anchor="middle" x="43" y="180">
-test1
-</text>
-</g>
-<g>
-<rect fill="#ffffff" height="20" rx="2" ry="2" stroke="#000000" stroke-width="1" width="46" x="188" y="20"/>
-<text dominant-baseline="central" fill="#000000" font-size="8" text-anchor="middle" x="211" y="30">
-test4
-</text>
-<rect fill="#ffffff" height="20" rx="2" ry="2" stroke="#000000" stroke-width="1" width="46" x="188" y="170"/>
-<text dominant-baseline="central" fill="#000000" font-size="8" text-anchor="middle" x="211" y="180">
-test4
-</text>
+<line stroke="#000" x1="211" x2="211" y1="40" y2="170"/>
 </g>
 <g>
 <rect fill="#ffffff" height="20" rx="2" ry="2" stroke="#000000" stroke-width="1" width="46" x="132" y="20"/>
@@ -59,25 +38,45 @@ test2
 </text>
 </g>
 <g>
-<line marker-end="url(#marker-1)" stroke="#e7afff" x1="43" x2="155" y1="60" y2="60"/>
+<rect fill="#ffffff" height="20" rx="2" ry="2" stroke="#000000" stroke-width="1" width="46" x="20" y="20"/>
+<text dominant-baseline="central" fill="#000000" font-size="8" text-anchor="middle" x="43" y="30">
+test1
+</text>
+<rect fill="#ffffff" height="20" rx="2" ry="2" stroke="#000000" stroke-width="1" width="46" x="20" y="170"/>
+<text dominant-baseline="central" fill="#000000" font-size="8" text-anchor="middle" x="43" y="180">
+test1
+</text>
+</g>
+<g>
+<rect fill="#ffffff" height="20" rx="2" ry="2" stroke="#000000" stroke-width="1" width="46" x="188" y="20"/>
+<text dominant-baseline="central" fill="#000000" font-size="8" text-anchor="middle" x="211" y="30">
+test4
+</text>
+<rect fill="#ffffff" height="20" rx="2" ry="2" stroke="#000000" stroke-width="1" width="46" x="188" y="170"/>
+<text dominant-baseline="central" fill="#000000" font-size="8" text-anchor="middle" x="211" y="180">
+test4
+</text>
+</g>
+<g>
+<line marker-end="url(#marker-1)" stroke="#000" x1="43" x2="155" y1="60" y2="60"/>
 <text fill="#000000" font-size="8" text-anchor="middle" x="99" y="52">
 result
 </text>
 </g>
 <g>
-<line marker-end="url(#marker-1)" stroke="#e7afff" x1="155" x2="99" y1="90" y2="90"/>
+<line marker-end="url(#marker-1)" stroke="#000" x1="155" x2="99" y1="90" y2="90"/>
 <text fill="#000000" font-size="8" text-anchor="middle" x="127" y="82">
 result
 </text>
 </g>
 <g>
-<line marker-end="url(#marker-1)" stroke="#e7afff" x1="211" x2="155" y1="120" y2="120"/>
+<line marker-end="url(#marker-1)" stroke="#000" x1="211" x2="155" y1="120" y2="120"/>
 <text fill="#000000" font-size="8" text-anchor="middle" x="183" y="112">
 result
 </text>
 </g>
 <g>
-<line stroke="#e7afff" x1="99" x2="155" y1="150" y2="150"/>
+<line marker-end="url(#marker-1)" stroke="#000" x1="99" x2="155" y1="150" y2="150"/>
 <text fill="#000000" font-size="8" text-anchor="middle" x="127" y="142">
 result
 </text>

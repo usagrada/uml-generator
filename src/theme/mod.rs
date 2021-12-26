@@ -3,6 +3,7 @@ type GlobalStr = &'static str;
 #[derive(Debug)]
 pub enum ThemeName {
   Default,
+  Colorful,
 }
 
 pub static mut GLOBAL_THEME: ThemeName = ThemeName::Default;
@@ -13,8 +14,11 @@ pub struct Theme {
 }
 
 impl Theme {
-  pub fn new(_name: ThemeName) -> Self {
-    let color = DEFAULT_COLOR;
+  pub fn new(name: ThemeName) -> Self {
+    let color = match name {
+      ThemeName::Colorful => COLORFUL_COLOR,
+      _ => DEFAULT_COLOR,
+    };
     Self { color }
   }
 }
@@ -38,6 +42,19 @@ pub struct RectColor {
 }
 
 const DEFAULT_COLOR: ColorScheme = ColorScheme {
+  line: LineColor {
+    primary: "#000",
+    second: "#000",
+  },
+  rect: RectColor {
+    fill: "#ffffff",
+    frame: "#000000",
+    text: "#000000",
+  },
+  text_primary: "#000000",
+};
+
+const COLORFUL_COLOR: ColorScheme = ColorScheme {
   line: LineColor {
     primary: "#e7afff",
     second: "#e74c3c",

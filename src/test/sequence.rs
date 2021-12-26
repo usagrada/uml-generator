@@ -12,7 +12,7 @@ fn test_sequence() {
   s.add_edges(("test1", "test3", "result", Markers::Array));
   s.add_edges(("test3", "test2", "result", Markers::Array));
   s.add_edges(("test4", "test3", "result", Markers::Array));
-  s.add_edges(("test2", "test3", "result", Markers::None));
+  s.add_edges(("test2", "test3", "result", Markers::Array));
 
   let svg = s.make_svg();
 
