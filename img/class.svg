@@ -1,0 +1,108 @@
+<svg style="background-color:#fff" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(10, 10)">
+<g transform="translate(0, 0)">
+<rect fill="#ffffff" height="100" stroke="#000000" stroke-width="1" width="100"/>
+<line stroke="#000" x1="0" x2="100" y1="16" y2="16"/>
+<line stroke="#000" x1="0" x2="100" y1="48" y2="48"/>
+<text font-size="12" text-anchor="middle" x="50" y="12">
+class element
+</text>
+<g transform="translate(0, 16)">
+<g transform="translate(10, 13)">
+<text font-size="8" text-anchor="middle">
+-
+</text>
+<text font-size="8" x="8">
+element
+</text>
+</g>
+<g transform="translate(10, 24)">
+<text font-size="8" text-anchor="middle">
++
+</text>
+<text font-size="8" x="8">
+element2
+</text>
+</g>
+</g>
+<g transform="translate(0,48)">
+<g transform="translate(10, 13)">
+<text font-size="8" text-anchor="middle">
++
+</text>
+<text font-size="8" x="8">
+method1
+</text>
+</g>
+<g transform="translate(10, 24)">
+<text font-size="8" text-anchor="middle">
++
+</text>
+<text font-size="8" x="8">
+method2
+</text>
+</g>
+<g transform="translate(10, 35)">
+<text font-size="8" text-anchor="middle">
+-
+</text>
+<text font-size="8" x="8">
+method3
+</text>
+</g>
+</g>
+</g>
+<g transform="translate(0, 120)">
+<rect fill="#ffffff" height="100" stroke="#000000" stroke-width="1" width="100"/>
+<line stroke="#000" x1="0" x2="100" y1="16" y2="16"/>
+<line stroke="#000" x1="0" x2="100" y1="48" y2="48"/>
+<text font-size="12" text-anchor="middle" x="50" y="12">
+class element2
+</text>
+<g transform="translate(0, 16)">
+<g transform="translate(10, 13)">
+<text font-size="8" text-anchor="middle">
+-
+</text>
+<text font-size="8" x="8">
+element
+</text>
+</g>
+<g transform="translate(10, 24)">
+<text font-size="8" text-anchor="middle">
++
+</text>
+<text font-size="8" x="8">
+element2
+</text>
+</g>
+</g>
+<g transform="translate(0,48)">
+<g transform="translate(10, 13)">
+<text font-size="8" text-anchor="middle">
++
+</text>
+<text font-size="8" x="8">
+method1
+</text>
+</g>
+<g transform="translate(10, 24)">
+<text font-size="8" text-anchor="middle">
++
+</text>
+<text font-size="8" x="8">
+method2
+</text>
+</g>
+<g transform="translate(10, 35)">
+<text font-size="8" text-anchor="middle">
+-
+</text>
+<text font-size="8" x="8">
+method3
+</text>
+</g>
+</g>
+</g>
+</g>
+</svg>

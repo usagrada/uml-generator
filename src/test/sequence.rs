@@ -1,24 +1,20 @@
-use crate::{uml::sequence, MakeSvg};
-use svg::Document;
+use crate::helper::Markers;
+use crate::{helper::*, theme::ThemeName, uml::Sequence, MakeSvg};
 
 #[test]
 fn test_sequence() {
-    let mut s = sequence::Sequence::new();
-    s.add_nodes("test1");
-    s.add_nodes("test2");
-    s.add_nodes("test3");
-    s.add_nodes("test4");
-    s.add_edges(("test1", "test3", "result"));
-    s.add_edges(("test3", "test2", "result"));
-    s.add_edges(("test4", "test3", "result"));
-    s.add_edges(("test2", "test3", "result"));
+    let theme = ThemeName::Default;
+    let mut s = Sequence::new(theme);
+    s.add_node("test1");
+    s.add_node("test2");
+    s.add_node("test3");
+    s.add_node("test4");
+    s.add_edge(("test1", "test3", "result", Markers::Array));
+    s.add_edge(("test3", "test2", "result", Markers::Array));
+    s.add_edge(("test4", "test3", "result", Markers::Array));
+    s.add_edge(("test2", "test3", "result", Markers::Array));
 
-    let a = s.make_svg();
-    let bb = s.bounding_box();
-    let mut document = Document::new().set("viewBox", bb);
-    for value in a.iter() {
-        document = document.add(value.clone());
-    }
+    let svg = s.make_svg().change_background_color("#fff".into());
 
-    svg::save("img/sequence.svg", &document).unwrap();
+    svg::save("img/sequence.svg", &svg).unwrap();
 }

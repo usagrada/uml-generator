@@ -1,8 +1,9 @@
-use svg::node::element::Group;
+use svg::Document;
 pub mod helper;
-pub mod uml;
 #[cfg(test)]
 mod test;
+pub mod theme;
+pub mod uml;
 
 #[macro_export]
 macro_rules! make_vec {
@@ -10,6 +11,10 @@ macro_rules! make_vec {
 }
 
 pub trait MakeSvg {
-  fn bounding_box(&self) -> (usize, usize, usize, usize);
-  fn make_svg(&self) -> Vec<Group>;
+    fn bounding_box(&self) -> (usize, usize, usize, usize);
+    fn make_svg(&mut self) -> Document;
+    fn make_img<T: Into<String>>(&mut self, name: T) {
+        let svg = self.make_svg();
+        svg::save(name.into(), &svg).unwrap();
+    }
 }
