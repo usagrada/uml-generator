@@ -11,10 +11,10 @@ macro_rules! make_vec {
 }
 
 pub trait MakeSvg {
-  fn bounding_box(&self) -> (usize, usize, usize, usize);
-  fn make_svg(&self) -> Document;
-  fn make_img<T: Into<String>>(&self, name: T) {
-    let svg = self.make_svg();
-    svg::save(name.into(), &svg).unwrap();
-  }
+    fn bounding_box(&self) -> (usize, usize, usize, usize);
+    fn make_svg(&mut self) -> Document;
+    fn make_img<T: Into<String>>(&mut self, name: T) {
+        let svg = self.make_svg();
+        svg::save(name.into(), &svg).unwrap();
+    }
 }
