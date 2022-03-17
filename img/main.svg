@@ -1,5 +1,12 @@
-<svg style="background-color:#fff" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+<svg style="background-color:#fff" viewBox="0 0 240 480" xmlns="http://www.w3.org/2000/svg">
 <g transform="translate(10, 10)">
+<line stroke="#000000" stroke-width="2" x1="50" x2="170" y1="100" y2="120"/>
+<line stroke="#000000" stroke-width="2" x1="50" x2="50" y1="100" y2="120"/>
+<line stroke="#000000" stroke-width="2" x1="50" x2="50" y1="220" y2="240"/>
+<line stroke="#000000" stroke-width="2" x1="50" x2="50" y1="220" y2="360"/>
+<line stroke="#000000" stroke-width="2" x1="50" x2="170" y1="340" y2="360"/>
+<line stroke="#000000" stroke-width="2" x1="50" x2="50" y1="340" y2="360"/>
+<line stroke="#000000" stroke-width="2" x1="170" x2="170" y1="220" y2="360"/>
 <g transform="translate(0, 0)">
 <rect fill="#ffffff" height="100" stroke="#000000" stroke-width="1" width="100"/>
 <line stroke="#000" x1="0" x2="100" y1="16" y2="16"/>
@@ -10,7 +17,7 @@ test1
 <g transform="translate(0, 16)"/>
 <g transform="translate(0,26)"/>
 </g>
-<g transform="translate(120, 0)">
+<g transform="translate(0, 120)">
 <rect fill="#ffffff" height="100" stroke="#000000" stroke-width="1" width="100"/>
 <line stroke="#000" x1="0" x2="100" y1="16" y2="16"/>
 <line stroke="#000" x1="0" x2="100" y1="26" y2="26"/>
@@ -20,7 +27,7 @@ test2
 <g transform="translate(0, 16)"/>
 <g transform="translate(0,26)"/>
 </g>
-<g transform="translate(0, 120)">
+<g transform="translate(0, 240)">
 <rect fill="#ffffff" height="100" stroke="#000000" stroke-width="1" width="100"/>
 <line stroke="#000" x1="0" x2="100" y1="16" y2="16"/>
 <line stroke="#000" x1="0" x2="100" y1="26" y2="26"/>
@@ -30,7 +37,7 @@ test3
 <g transform="translate(0, 16)"/>
 <g transform="translate(0,26)"/>
 </g>
-<g transform="translate(0, 240)">
+<g transform="translate(0, 360)">
 <rect fill="#ffffff" height="100" stroke="#000000" stroke-width="1" width="100"/>
 <line stroke="#000" x1="0" x2="100" y1="16" y2="16"/>
 <line stroke="#000" x1="0" x2="100" y1="26" y2="26"/>
@@ -40,7 +47,7 @@ test4
 <g transform="translate(0, 16)"/>
 <g transform="translate(0,26)"/>
 </g>
-<g transform="translate(120, 240)">
+<g transform="translate(120, 120)">
 <rect fill="#ffffff" height="100" stroke="#000000" stroke-width="1" width="100"/>
 <line stroke="#000" x1="0" x2="100" y1="16" y2="16"/>
 <line stroke="#000" x1="0" x2="100" y1="26" y2="26"/>
@@ -50,7 +57,7 @@ test5
 <g transform="translate(0, 16)"/>
 <g transform="translate(0,26)"/>
 </g>
-<g transform="translate(120, 120)">
+<g transform="translate(120, 360)">
 <rect fill="#ffffff" height="100" stroke="#000000" stroke-width="1" width="100"/>
 <line stroke="#000" x1="0" x2="100" y1="16" y2="16"/>
 <line stroke="#000" x1="0" x2="100" y1="26" y2="26"/>
@@ -60,7 +67,7 @@ test6
 <g transform="translate(0, 16)"/>
 <g transform="translate(0,26)"/>
 </g>
-<g transform="translate(240, 240)">
+<g transform="translate(120, 0)">
 <rect fill="#ffffff" height="100" stroke="#000000" stroke-width="1" width="100"/>
 <line stroke="#000" x1="0" x2="100" y1="16" y2="16"/>
 <line stroke="#000" x1="0" x2="100" y1="26" y2="26"/>

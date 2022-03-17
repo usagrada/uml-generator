@@ -234,6 +234,14 @@ pub fn calc_rank<T>(nodes: &Vec<T>, edges: &Vec<(usize, usize)>) -> Vec<usize> {
     for edge in edges {
         let (from, to) = (edge.0, edge.1);
         ranks[to] = ranks[to].max(ranks[from] + 1);
+        if visited[to] {
+            // check children
+            for edge in edges {
+                if edge.0 == to {
+                    ranks[edge.1] = ranks[edge.1].max(ranks[to] + 1);
+                }
+            }
+        }
         visited[from] = true;
         visited[to] = true;
     }
